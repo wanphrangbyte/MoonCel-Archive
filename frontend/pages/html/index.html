@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoonCel | Archive Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#050505',
+                        darkerBg: '#020202',
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <video class="fixed inset-0 z-[-2] w-full h-full object-cover pointer-events-none" autoplay loop muted playsinline>
+        <source src="../assets/background .mp4" type="video/mp4">
+    </video>
+    <div class="fixed inset-0 z-[-1] bg-black/75 backdrop-blur-[2px]"></div>
+
+    <div id="reality-marble" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../assets/servants.jpg'); background-size: cover; background-position: center;" class="fixed inset-0 flex flex-col items-center justify-center z-50 hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm z-10 pointer-events-none"></div>
+        <div class="relative z-20 flex flex-col items-center w-full">
+            <h1 class="text-4xl md:text-6xl text-crimson-light font-bold mb-8 tracking-wider glowing-text text-center uppercase">
+                Mooncel Archive
+            </h1>
+            <h1 class="cinematic-text text-2xl md:text-4xl mb-6 tracking-[0.3em] glow-text text-gray-200 relative z-10" id="summon-text">
+                INITIATING SUMMON...
+            </h1>
+            <div id="gacha-card-container" class="relative z-10 w-56 h-[320px] md:w-72 md:h-[420px] rounded-xl overflow-hidden border-2 border-gray-600 shadow-2xl transition-all duration-300">
+                <div id="gacha-flash" class="absolute inset-0 bg-white opacity-0 z-20 transition-opacity duration-75 pointer-events-none"></div>
+                <img id="gacha-image" src="https://placehold.co/400x600/111/444?text=SUMMONING" alt="Servant Card" class="w-full h-full object-cover z-10 relative">
+            </div>
+            <div id="gacha-result" class="relative z-10 mt-8 text-center opacity-0 transition-opacity duration-1000 hidden">
+                <h2 id="servant-name" class="cinematic-text text-4xl md:text-6xl text-white glow-text mb-2">SERVANT</h2>
+                <p id="servant-discount" class="text-xl md:text-2xl font-light tracking-wider text-gray-200">0% Discount Applied</p>
+                <button onclick="enterMooncel()" class="mt-6 px-8 py-3 text-base glow-btn rounded-full uppercase tracking-widest backdrop-blur-md">
+                    Enter Archive
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="shopSection" class="hidden opacity-0 transition-opacity duration-1000 ease-in relative">
+
+        <div id="scroll-progress"></div>
+
+        <nav class="fixed w-full top-0 z-40 border-b border-white/20 transition-all duration-300 shadow-lg shadow-black/50 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center z-0 pointer-events-none"
+                style="background-image: url('../assets/eyes.jpg');"></div>
+            <div class="absolute inset-0 bg-black/30 backdrop-blur-md z-10 pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+                <div class="flex justify-between items-center h-24">
+                    
+                    <div class="flex items-center">
+                        <a href="#" class="cinematic-text text-3xl font-bold tracking-widest glow-text cursor-pointer text-white">
+                            MOONCEL <span style="color: var(--theme-color, #ff4d6d);">ARCHIVE</span>
+                        </a>
+                    </div>
+
+                    <div class="hidden md:flex md:flex-1 justify-center space-x-8">
+                        <a href="#about"
+                            class="text-gray-200 hover:text-[var(--theme-color)] transition-colors uppercase text-sm font-semibold tracking-wider">Origin</a>
+                        <a href="#posters"
+                            class="text-gray-200 hover:text-[var(--theme-color)] transition-colors uppercase text-sm font-semibold tracking-wider">Posters</a>
+                        <a href="#tshirts"
+                            class="text-gray-200 hover:text-[var(--theme-color)] transition-colors uppercase text-sm font-semibold tracking-wider">Apparel</a>
+                        <a href="#costumes"
+                            class="text-gray-200 hover:text-[var(--theme-color)] transition-colors uppercase text-sm font-semibold tracking-wider">Costumes</a>
+                    </div>
+                    
+                    <div class="flex items-center space-x-6">
+                        <span id="nav-username" class="text-[var(--theme-color)] text-sm font-bold uppercase tracking-widest hidden md:block"></span>
+                        
+                        <a href="../html/dashboard.html"
+                            class="text-white hover:text-[var(--theme-color)] transition-colors relative">
+                            <i class="fas fa-user text-xl"></i>
+                        </a>
+
+                        <button onclick="toggleCart()"
+                            class="text-white hover:text-[var(--theme-color)] transition-colors relative">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-3 -right-3 bg-[#ff4d6d] text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(255,77,109,0.8)]">0</span>
+                        </button>
+
+                        <button onclick="checkRealityMarbleAccess()" class="hidden md:flex items-center gap-2 text-xs uppercase tracking-widest text-white bg-[#ff4d6d] px-5 py-2.5 rounded-md hover:bg-transparent hover:text-[#ff4d6d] border border-[#ff4d6d] transition-all duration-300 shadow-[0_0_15px_rgba(255,77,109,0.5)]">
+                            <i class="fas fa-undo"></i> <span>GACHA</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <section id="about" class="min-h-screen flex items-center justify-center pt-24 relative overflow-hidden">
+            <div class="max-w-5xl mx-auto px-6 relative z-10 text-center reveal">
+                <h1 class="cinematic-text text-6xl md:text-8xl font-black mb-6 tracking-[0.2em] glow-text">
+                    ☽ FΛƬΞ ☾ <br> 
+                </h1>
+                <div class="h-1 w-32 mx-auto mb-10"
+                    style="background-color: var(--theme-color); box-shadow: 0 0 15px var(--theme-glow);"></div>
+                <p class="text-xl md:text-2xl text-gray-200 leading-relaxed font-light mb-12 reveal">
+                    Welcome to the Mooncel Archive. A realm where the legendary spirits of the Fate universe intersect
+                    with premium modern streetwear. Designed within a Reality Marble, crafted for the real world. Your
+                    summoned servant grants you discount here.
+                </p>
+                <div class="inline-block p-6 border border-gray-600 rounded-xl bg-black/60 backdrop-blur-md reveal shadow-2xl">
+                    <p class="text-base text-gray-300 uppercase font-semibold tracking-widest mb-2">Active Blessing</p>
+                    <p id="active-blessing" class="cinematic-text text-3xl font-bold"
+                        style="color: var(--theme-color);">None</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="posters" class="py-24 relative border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="cinematic-text text-5xl mb-4 tracking-wider">Legendary <span
+                            style="color: var(--theme-color);">Visions</span></h2>
+                    <p class="text-gray-300 font-light text-lg max-w-3xl mx-auto">
+                        Adorn your walls with fragments of heroic history. Premium matte posters capturing the intense
+                        auras of Noble Phantasms and cinematic clashes.
+                    </p>
+                </div>
+
+                <div id="dynamic-posters" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+                </div>
+            </div>
+        </section>
+
+        <section id="tshirts" class="py-24 relative border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row gap-12 items-center mb-16">
+                    <div class="lg:w-1/2 reveal-left">
+                        <h2 class="cinematic-text text-5xl mb-4 tracking-wider">Woven in <span
+                                style="color: var(--theme-color);">Mana</span></h2>
+                        <p class="text-gray-300 font-light text-lg leading-relaxed">
+                            Luxury anime streetwear. Minimalist front designs with expansive, atmospheric back artwork.
+                            Wear your command spells with pride in heavyweight cotton.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="dynamic-tshirts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+                </div>
+            </div>
+        </section>
+
+        <section id="costumes" class="py-24 relative border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="cinematic-text text-5xl mb-4 tracking-wider">FATE  <span
+                            style="color: var(--theme-color);">COSTUMES</span></h2>
+                    <p class="text-gray-300 font-light text-lg max-w-3xl mx-auto">
+                        Fully realized cosplay and luxury replica garments. Step into the shoes of a Master or embody
+                        the spirit of a Servant.
+                    </p>
+                </div>
+
+                <div id="dynamic-costumes" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+                </div>
+            </div>
+        </section>
+
+        <section id="keychains" class="py-24 relative border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="cinematic-text text-5xl mb-4 tracking-wider">FATE <span
+                            style="color: var(--theme-color);">KEYCHAINS</span></h2>
+                    <p class="text-gray-300 font-light text-lg max-w-2xl mx-auto">Small but powerful. Carry these
+                        catalysts with you to ensure your summons are always successful.</p>
+                </div>
+
+                <div id="dynamic-relics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-black/90 backdrop-blur-md py-16 border-t border-white/20 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+                    <div>
+                        <h3 class="cinematic-text text-2xl mb-4 font-bold" style="color: var(--theme-color);">Mooncel
+                            Archive</h3>
+                        <p class="text-gray-400 text-base leading-relaxed">Premium anime streetwear forged with refrence
+                            to FATE SERIES.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white uppercase tracking-widest text-base font-semibold mb-6">Support</h4>
+                        <ul class="text-gray-400 text-base space-y-3">
+                            <li><a href="" class="hover:text-[var(--theme-color)] transition-colors">Customer Care : 9366484202 || wanphrang556@gmail.com</a>
+                            </li>
+                           
+                            <li><a href="" class="hover:text-[var(--theme-color)] transition-colors">Returns &
+                                    Refunds</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white uppercase tracking-widest text-base font-semibold mb-6">
+                        </h4>
+                        <ul class="text-gray-400 text-base space-y-3">
+                            <li><a href="#" class="hover:text-[var(--theme-color)] transition-colors">About Us</a></li>
+                            <li><a href="" class="hover:text-[var(--theme-color)] transition-colors">Contact : 9366484202|| wanphrang556@gmail.com</a></li>
+                            <li><a href="" class="hover:text-[var(--theme-color)] transition-colors">Privacy Policy</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white uppercase tracking-widest text-base font-semibold mb-6">Connect</h4>
+                        <div class="flex space-x-6 text-gray-400">
+                            <a href="#" class="hover:text-[var(--theme-color)] transition-colors"><i
+                                    class="fab fa-twitter text-2xl"></i></a>
+                            <a href="#" class="hover:text-[var(--theme-color)] transition-colors"><i
+                                    class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="hover:text-[var(--theme-color)] transition-colors"><i
+                                    class="fab fa-discord text-2xl"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center pt-10 border-t border-gray-800">
+                    <button onclick="scrollToTop()"
+                        class="glow-btn px-8 py-3 rounded-full uppercase tracking-widest text-sm mb-6 font-bold">
+                        <i class="fas fa-chevron-up mr-2"></i> Return to Top
+                    </button>
+                    <p class="text-gray-500 text-sm">&copy; 2026 Mooncel Archive. Fate/ stay night properties belong to
+                        TYPE-MOON.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <aside id="cart-panel"
+        class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-black/95 backdrop-blur-2xl border-l border-white/20 z-50 shadow-2xl flex flex-col">
+        <div class="p-8 border-b border-gray-800 flex justify-between items-center">
+            <h2 class="cinematic-text text-3xl font-bold tracking-wider text-white">Your Inventory</h2>
+            <button onclick="toggleCart()"
+                class="text-gray-400 hover:text-white transition-colors text-4xl">&times;</button>
+        </div>
+
+        <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-5">
+            <p class="text-gray-400 text-center text-lg empty-msg mt-10">Your inventory is empty.</p>
+        </div>
+
+        <div class="p-8 border-t border-gray-800 bg-black/50">
+            <div class="flex justify-between text-base text-gray-300 mb-3">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">₹0.00</span>
+            </div>
+            <div class="flex justify-between text-base mb-5" style="color: var(--theme-color);">
+                <span>Servant Discount (<span id="cart-discount-percent">0</span>%)</span>
+                <span id="cart-discount-amount">-₹0.00</span>
+            </div>
+            <div class="flex justify-between text-2xl text-white font-black mb-8">
+                <span class="cinematic-text">Total</span>
+                <span id="cart-total">₹0.00</span>
+            </div>
+            <button onclick="checkout()"
+                class="glow-btn w-full py-5 text-lg rounded-xl uppercase tracking-widest font-black mb-3">Initiate
+                Checkout</button>
+            <button onclick="clearCart()"
+                class="w-full py-3 text-base rounded-xl uppercase tracking-widest font-semibold border border-gray-600 text-gray-300 hover:border-red-500 hover:text-red-400 transition-colors">Clear
+                Inventory</button>
+        </div>
+    </aside>
+
+    <div id="product-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-panel max-w-4xl w-full mx-4 flex flex-col md:flex-row border border-[#ff4d6d] shadow-[0_0_40px_rgba(255,77,109,0.15)] rounded-xl overflow-hidden relative transform scale-95 transition-transform duration-300" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20 bg-black/50 rounded-full w-10 h-10 border border-gray-700 flex items-center justify-center"><i class="fas fa-times"></i></button>
+            <div class="md:w-1/2 relative bg-black/50">
+                <img id="modal-img-front" src="" class="w-full h-full object-cover min-h-[400px]">
+                <img id="modal-img-back" src="" class="w-full h-full object-cover min-h-[400px] absolute inset-0 opacity-0 transition-opacity duration-500">
+                <button id="modal-flip-btn" onclick="toggleBackView()" class="hidden absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-black/80 border border-[#ff4d6d] text-white px-6 py-2 rounded-full text-xs font-bold uppercase z-10 hover:bg-[#ff4d6d] transition-colors">Reveal Back</button>
+            </div>
+            <div class="md:w-1/2 p-8 flex flex-col justify-center">
+                <span id="modal-category" class="text-[#ff4d6d] text-xs font-bold uppercase tracking-[0.4em] mb-2"></span>
+                <h2 id="modal-title" class="cinematic-text text-3xl mb-4 text-white"></h2>
+                <div class="text-2xl font-bold text-[var(--theme-color)] mb-6">₹<span id="modal-price"></span></div>
+                <p id="modal-desc" class="text-gray-300 text-sm leading-relaxed mb-8 border-l-2 border-gray-700 pl-4"></p>
+                
+                <div id="modal-size-selector" class="hidden mb-6">
+                    <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-3">Select Size</h4>
+                    <div id="modal-sizes-container" class="flex flex-wrap gap-3"></div>
+                </div>
+
+                <div id="modal-size-chart" class="hidden mb-8">
+                    <h4 class="text-xs text-gray-500 uppercase tracking-widest mb-3">Measurement Data (Inches)</h4>
+                    <div class="overflow-x-auto rounded-lg border border-gray-700">
+                        <table class="w-full text-center text-xs text-gray-300">
+                            <thead class="bg-black text-[var(--theme-color)] border-b border-gray-700">
+                                <tr>
+                                    <th class="py-3 px-2 font-medium">SIZE</th>
+                                    <th class="py-3 px-2 font-medium">CHEST</th>
+                                    <th class="py-3 px-2 font-medium">SHOULDER</th>
+                                    <th class="py-3 px-2 font-medium">LENGTH</th>
+                                    <th class="py-3 px-2 font-medium">SLEEVE</th>
+                                    <th class="py-3 px-2 font-medium">WAIST</th>
+                                    <th class="py-3 px-2 font-medium">HIP (Costume)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-800">
+                                <tr class="bg-black/40 hover:bg-white/5 transition-colors"><td class="py-3 font-bold text-white">S</td><td>38</td><td>17</td><td>26</td><td>8</td><td>30</td><td>36</td></tr>
+                                <tr class="bg-black/40 hover:bg-white/5 transition-colors"><td class="py-3 font-bold text-white">M</td><td>40</td><td>18</td><td>27</td><td>8.5</td><td>32</td><td>38</td></tr>
+                                <tr class="bg-black/40 hover:bg-white/5 transition-colors"><td class="py-3 font-bold text-white">L</td><td>42</td><td>19</td><td>28</td><td>9</td><td>34</td><td>40</td></tr>
+                                <tr class="bg-black/40 hover:bg-white/5 transition-colors"><td class="py-3 font-bold text-white">XL</td><td>44</td><td>20</td><td>29</td><td>9.5</td><td>36</td><td>42</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="modal-btn-container" class="mt-auto"></div>
+            </div>
+        </div>
+    </div>
+
+<div id="custom-alert-modal" class="fixed inset-0 z-[150] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-panel p-8 text-center max-w-sm w-full border border-[#ff4d6d] shadow-[0_0_30px_rgba(255,77,109,0.2)] rounded-xl transform scale-95 transition-transform duration-300" id="custom-alert-content">
+            <i class="fas fa-exclamation-circle text-5xl mb-4 text-[#ff4d6d] glow-text"></i>
+            <h3 class="cinematic-text text-xl mb-2 text-white uppercase tracking-widest">Summon Blocked</h3>
+            <p id="custom-alert-message" class="text-gray-300 text-sm mb-8 font-light tracking-wide"></p>
+            <button onclick="closeCustomAlert()" class="glow-btn w-full py-3 rounded-lg uppercase tracking-widest text-sm font-bold border border-[#ff4d6d] text-[#ff4d6d] hover:bg-[#ff4d6d] hover:text-white transition-colors">
+                Return
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MUSIC PLAYER WIDGET
+         A small floating player that lives in the bottom-left corner.
+         It autoplays when the user lands on the store after login,
+         and lets them toggle between muted and playing with one click.
+         You can swap in any audio files you want — just update the
+         <source> tags inside #bg-music below.
+         ============================================================ -->
+
+    <!-- The hidden <audio> element — this is what actually plays the music.
+         We set it to loop so it never stops, and preload so it's ready fast.
+         Drop your own .mp3 / .ogg files into your assets folder and update the
+         src paths here. We start muted so the browser allows autoplay without
+         throwing a policy error — we unmute it via JS right after the user
+         has interacted with the page (login counts as interaction). -->
+    <audio id="bg-music" loop preload="auto" muted>
+        <!-- Replace these with your own music files! -->
+        <source src="../assets/페이트 제로 1쿨 엔딩 「Memoria」.mp3" type="audio/mpeg">
+        <source src="../assets/kalafina-to-the-beginning.mp3" type="audio/ogg">
+        <!-- Fallback text for really old browsers that can't play audio -->
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- The visible floating widget the user actually sees and clicks.
+         We hide it by default and only show it once the shop section
+         is visible (i.e. the user is authenticated and past the gacha). -->
+    <div id="music-player-widget"
+         style="
+            /* Fixed in the bottom-left corner so it never scrolls away */
+            position: fixed;
+            bottom: 28px;
+            left: 28px;
+            z-index: 9999;
+
+            /* Start invisible — we fade it in after login */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+
+            /* Pill shape with a glassmorphism look matching the site */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(5, 5, 5, 0.82);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+            padding: 10px 18px 10px 14px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 15px rgba(255,77,109,0.08);
+            cursor: pointer;
+            user-select: none;
+         "
+         onclick="toggleMusicPlayer()"
+         title="Toggle music">
+
+        <!-- Animated music icon — the bars bounce when music is playing,
+             and they freeze when it's muted. We swap between a muted icon
+             and the animated bars via CSS classes added in JS. -->
+        <div id="music-icon-wrap" style="width:22px; height:22px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+            <!-- Animated equalizer bars (shown when playing) -->
+            <div id="music-bars" style="display:flex; align-items:flex-end; gap:2px; height:18px;">
+                <span class="music-bar" style="width:3px; background:var(--theme-color,#ff4d6d); border-radius:2px; animation: barBounce 0.8s ease-in-out infinite alternate; animation-delay:0s;"></span>
+                <span class="music-bar" style="width:3px; background:var(--theme-color,#ff4d6d); border-radius:2px; animation: barBounce 0.8s ease-in-out infinite alternate; animation-delay:0.2s;"></span>
+                <span class="music-bar" style="width:3px; background:var(--theme-color,#ff4d6d); border-radius:2px; animation: barBounce 0.8s ease-in-out infinite alternate; animation-delay:0.4s;"></span>
+                <span class="music-bar" style="width:3px; background:var(--theme-color,#ff4d6d); border-radius:2px; animation: barBounce 0.8s ease-in-out infinite alternate; animation-delay:0.1s;"></span>
+            </div>
+            <!-- Muted speaker icon (hidden by default, shown when muted) -->
+            <i id="music-muted-icon" class="fas fa-volume-mute" style="display:none; color:var(--theme-color,#ff4d6d); font-size:16px;"></i>
+        </div>
+
+        <!-- The little track label text next to the icon -->
+        <div style="display:flex; flex-direction:column; line-height:1.2;">
+            <span id="music-label" style="
+                font-family: 'Cinzel', serif;
+                font-size: 10px;
+                letter-spacing: 0.15em;
+                color: #fff;
+                text-transform: uppercase;
+            ">Archive ST</span>
+            <span id="music-sublabel" style="
+                font-size: 9px;
+                letter-spacing: 0.08em;
+                color: rgba(255,255,255,0.45);
+                margin-top:1px;
+            ">Playing</span>
+        </div>
+    </div>
+
+    <!-- The keyframe animation for the bouncing equalizer bars.
+         Each bar gets a different height range so they feel organic. -->
+    <style>
+        @keyframes barBounce {
+            0%   { height: 4px; }
+            100% { height: 16px; }
+        }
+
+        /* When the player is in muted state, we pause the bar animations
+           so they freeze in place visually — matching the silence. */
+        #music-player-widget.muted .music-bar {
+            animation-play-state: paused;
+            height: 4px;
+        }
+    </style>
+
+    <script src="../js/index.js"></script>
+</body>
+</html>

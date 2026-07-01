@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaldea Control Room | Mooncel Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+        
+        :root {
+            --theme-color: #ff3b3b;
+            --bg-dark: #0a0a0f;
+        }
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-dark);
+            color: #fff;
+        }
+        .cinematic-text { font-family: 'Cinzel', serif; }
+        .glass-panel {
+            background: rgba(20, 20, 25, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+        .glow-input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .glow-input:focus {
+            border-color: var(--theme-color);
+            box-shadow: 0 0 10px rgba(255, 59, 59, 0.3);
+            outline: none;
+        }
+        .glow-btn {
+            background: linear-gradient(45deg, #8b0000, var(--theme-color));
+            transition: all 0.3s ease;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 20px rgba(255, 59, 59, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="flex justify-between items-center mb-12 border-b border-white/10 pb-6">
+            <h1 class="cinematic-text text-4xl tracking-widest text-red-500 text-shadow-glow">
+                ADMIN <span class="text-white text-2xl">| TERMINAL</span>
+            </h1>
+            <a href="../html/index.html" class="text-gray-400 hover:text-white transition"><i class="fas fa-arrow-left mr-2"></i>Return to Archive</a>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <div class="glass-panel p-8">
+                <h2 class="cinematic-text text-2xl mb-6 border-b border-white/10 pb-3"><i class="fas fa-plus-circle text-red-500 mr-2"></i> ADD NEW ITEM</h2>
+                
+                <form id="addProductForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Relic Name</label>
+                        <input type="text" id="addName" name="name" class="w-full p-3 rounded glow-input" required>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div> 
+                            <label class="block text-sm text-gray-400 mb-1">Price (₹)</label>
+                            <input type="number" id="addPrice" name="price" step="0.01" class="w-full p-3 rounded glow-input" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Initial Stock</label>
+                            <input type="number" id="addStock" name="stock_quantity" value="10" class="w-full p-3 rounded glow-input" required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Category</label>
+                            <select id="addCategory" name="category" class="w-full p-3 rounded glow-input" required>
+                                <option value="poster" class="bg-gray-900">Legendary Visions (Poster)</option>
+                                <option value="apparel" class="bg-gray-900">Woven in Mana (Apparel)</option>
+                                <option value="costume" class="bg-gray-900">Noble Armaments (Costume)</option>
+                                <option value="relic" class="bg-gray-900">Catalyst (Keychain)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Available Sizes</label>
+                            <input type="text" id="addSizes" name="available_sizes" placeholder="e.g., S, M, L, XL" class="w-full p-3 rounded glow-input">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Lore / Description</label>
+                        <textarea id="addDescription" name="description" rows="3" class="w-full p-3 rounded glow-input" placeholder="A legendary relic forged in the Mooncel Archive..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Upload Front (JPG/PNG)</label>
+                            <input type="file" id="addImage" name="image" accept="image/*" class="w-full p-3 rounded glow-input" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Upload Back (Optional)</label>
+                            <input type="file" id="addImageBack" name="image_back" accept="image/*" class="w-full p-3 rounded glow-input">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full glow-btn text-white font-bold py-3 rounded tracking-wider mt-4">
+                        INITIALIZE SUMMON
+                    </button>
+                    <p id="addMessage" class="text-sm mt-3 text-center hidden"></p>
+                </form>
+            </div>
+
+            <div class="glass-panel p-8">
+                <h2 class="cinematic-text text-2xl mb-6 border-b border-white/10 pb-3"><i class="fas fa-coins text-red-500 mr-2"></i> Update Price</h2>
+                
+                <form id="updatePriceForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Product ID (Check Database)</label>
+                        <input type="number" id="updateId" class="w-full p-3 rounded glow-input" required placeholder="e.g., 1">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">New Price (₹)</label>
+                        <input type="number" id="updateNewPrice" step="0.01" class="w-full p-3 rounded glow-input" required>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gray-700 hover:bg-gray-600 border border-gray-500 text-white font-bold py-3 rounded tracking-wider transition">
+                        UPDATE
+                    </button>
+                    <p id="updateMessage" class="text-sm mt-3 text-center hidden"></p>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="glass-panel p-8 mt-8">
+            <h2 class="cinematic-text text-2xl mb-6 border-b border-white/10 pb-3">
+                <i class="fas fa-database text-red-500 mr-2"></i> Live Archive Database
+            </h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-700 text-gray-400 text-sm tracking-wider">
+                            <th class="p-3">ID</th>
+                            <th class="p-3">IMAGE</th>
+                            <th class="p-3">NAME</th>
+                            <th class="p-3">CATEGORY</th>
+                            <th class="p-3">PRICE (₹)</th>
+                            <th class="p-3">STOCK</th>
+                            <th class="p-3 text-right">ACTION</th> 
+                        </tr>
+                    </thead>
+                    <tbody id="adminProductTableBody" class="text-sm">
+                        <tr>
+                            <td colspan="6" class="text-center p-6 text-gray-500">Loading database records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-12 mb-12">
+            <h2 class="cinematic-text text-xl mb-4 text-[#ff4d6d]">Master Control: User Access</h2>
+            <div class="glass-panel overflow-hidden rounded-xl border border-gray-700">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-700 text-gray-400 text-sm tracking-wider">
+                            <th class="p-3">ID</th>
+                            <th class="p-3">EMAIL</th>
+                            <th class="p-3">STATUS</th>
+                            <th class="p-3 text-right">ACCESS CONTROL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-user-list" class="text-white divide-y divide-gray-800">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="admin-edit-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-panel max-w-2xl w-full mx-4 p-8 border border-[#ff4d6d] shadow-[0_0_40px_rgba(255,77,109,0.15)] rounded-xl relative transform scale-95 transition-transform duration-300" id="admin-edit-content">
+            <button onclick="closeEditModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <h2 class="cinematic-text text-2xl mb-6 text-[#ff4d6d]">Edit Archive Record</h2>
+            <form id="admin-edit-form" class="space-y-4">
+                <input type="hidden" id="edit-id">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-400 text-xs tracking-widest mb-1">NAME</label>
+                        <input type="text" id="edit-name" class="w-full bg-black/50 border border-gray-700 text-white p-2 rounded focus:border-[#ff4d6d]">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-xs tracking-widest mb-1">PRICE (₹)</label>
+                        <input type="number" id="edit-price" class="w-full bg-black/50 border border-gray-700 text-white p-2 rounded focus:border-[#ff4d6d]">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-xs tracking-widest mb-1">AVAILABLE SIZES (Comma separated)</label>
+                    <input type="text" id="edit-sizes" placeholder="e.g., S, M, L, XL" class="w-full bg-black/50 border border-gray-700 text-white p-2 rounded focus:border-[#ff4d6d]">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-xs tracking-widest mb-1">LORE / DESCRIPTION</label>
+                    <textarea id="edit-desc" rows="4" class="w-full bg-black/50 border border-gray-700 text-white p-2 rounded focus:border-[#ff4d6d]"></textarea>
+                </div>
+                <button type="submit" class="glow-btn w-full py-3 mt-4 rounded uppercase tracking-widest font-bold bg-[#ff4d6d] text-white">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

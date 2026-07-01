@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoonCel_login</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="top-right">
+        <span>New user?</span> 
+        <a href="../html/auth.html">Sign Up</a>
+    </div>
+
+    <div class="login-container">
+        <h2>Welcome Back</h2>
+        <form action="/login" method="POST">
+            <div class="input-group" style="--delay: 0.1s;">
+                <label for="emailOrPhone">Email or Phone</label>
+                <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Enter your email or phone" required>
+            </div>
+            
+            <div class="input-group" style="--delay: 0.2s;">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="forgot-password" style="--delay: 0.3s;">
+                <a href="forgot-password.html">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="login-btn" id="loginBtn" style="--delay: 0.4s;">Login</button>
+        </form>
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>

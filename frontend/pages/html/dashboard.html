@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master's Command Room</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen">
+    
+    <div class="fixed inset-0 z-[-1] bg-[url('https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&q=80&w=1920')] bg-cover bg-center opacity-20"></div>
+    <div class="fixed inset-0 z-[-1] bg-black/80 backdrop-blur-sm"></div>
+
+    <nav class="w-full border-b border-white/20 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md">
+        <a href="index.html" class="cinematic-text text-2xl font-bold tracking-widest text-[#ff4d6d]">
+            <i class="fas fa-arrow-left mr-2"></i> RETURN TO ARCHIVE
+        </a>
+        <button onclick="logout()" class="border border-red-500 text-red-400 px-4 py-2 rounded hover:bg-red-900 transition-colors">
+             Logout
+        </button>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        <h1 class="cinematic-text text-4xl md:text-5xl font-bold mb-8 text-[#ff4d6d] glow-text text-center">
+            Command Room
+        </h1>
+
+        <div class="glass-panel p-8">
+            <h2 class="text-2xl font-semibold mb-6 uppercase tracking-widest border-b border-gray-700 pb-2">Past orders</h2>
+            
+            <div id="order-history-container" class="space-y-4">
+                <p class="text-gray-400 text-center animate-pulse">Accessing  Records...</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

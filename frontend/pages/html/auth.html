@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fate Registration</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+
+  <main class="main-layout">
+        
+        <!-- -->
+        <div class="ambient-glow"></div>
+        
+        <!-- Updated Background Image to newlogo.jpg -->
+        <img src="../assets/newlogo.png" 
+             onerror="this.src='https://placehold.co/800x800/000000/ff0000?text=Mooncel+Core'" 
+             alt="MoonCel Background" 
+             class="bg-logo">
+
+        <form id="registrationForm" class="form-container" novalidate>
+            
+            <div class="form-header animate-slide-up delay-1">
+                <div class="accent-line"></div>
+                <p class="subtitle">Mooncel | Archive</p>
+                <h1>REGISTER</h1>
+                <div class="accent-line"></div>
+            </div>
+
+            <!-- Name -->
+            <div class="input-group animate-slide-up delay-2">
+                <span class="warning-popup" id="nameWarning">Name is required</span>
+                <input type="text" id="username" placeholder="NAME:" class="form-input">
+            </div>
+
+            <!-- Email -->
+            <div class="input-group animate-slide-up delay-3">
+                <span class="warning-popup" id="emailWarning">Email is required</span>
+                <input type="email" id="email" placeholder="EMAIL:" class="form-input">
+            </div>
+
+            <!-- Phone Number & Country Code -->
+            <div class="input-group animate-slide-up delay-4">
+                <span class="warning-popup" id="phoneWarning">Phone number is required</span>
+                <div class="phone-layout">
+                    <select id="countryCode" class="form-select">
+                        <option value="91" data-len="10">🇮🇳 +91</option>
+                        <option value="1" data-len="10">🇺🇸 +1</option>
+                        <option value="44" data-len="11">🇬🇧 +44</option>
+                        <option value="81" data-len="10">🇯🇵 +81</option>
+                        <option value="49" data-len="11">🇩🇪 +49</option>
+                    </select>
+                    <input type="tel" id="phone" placeholder="PHONE: (10 Digits)" class="form-input">
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="input-group animate-slide-up delay-5">
+                <span class="warning-popup" id="passwordWarning">Password is required</span>
+                <input type="password" id="password" placeholder="PASSWORD:" class="form-input">
+            </div>
+
+            <button type="submit" class="form-button animate-slide-up delay-6" id="registerBtn">
+                INITIALIZE ACCOUNT
+            </button>
+        </form>
+
+        <div class="footer-links animate-slide-up delay-6">
+            <a href="mailto:wanphrang556@gmail.com">
+                SUPPORT: wanphrang556@gmail.com || 9366484202
+            </a>
+            <a href="../html/login.html" class="login-link">
+                ALREADY HAVE AN ACCOUNT?<br>LOG IN
+            </a>
+        </div>
+    </main>
+
+    <script src="../js/auth.js"></script>
+</body>
+
+</html>
